@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retail E-Commerce Sales Analytics Dashboard</title>
+    <style>
+        :root {
+  /* Primitive Color Tokens */
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-cream-50: rgba(252, 252, 249, 1);
+  --color-cream-100: rgba(255, 255, 253, 1);
+  --color-gray-200: rgba(245, 245, 245, 1);
+  --color-gray-300: rgba(167, 169, 169, 1);
+  --color-gray-400: rgba(119, 124, 124, 1);
+  --color-slate-500: rgba(98, 108, 113, 1);
+  --color-brown-600: rgba(94, 82, 64, 1);
+  --color-charcoal-700: rgba(31, 33, 33, 1);
+  --color-charcoal-800: rgba(38, 40, 40, 1);
+  --color-slate-900: rgba(19, 52, 59, 1);
+  --color-teal-300: rgba(50, 184, 198, 1);
+  --color-teal-400: rgba(45, 166, 178, 1);
+  --color-teal-500: rgba(33, 128, 141, 1);
+  --color-teal-600: rgba(29, 116, 128, 1);
+  --color-teal-700: rgba(26, 104, 115, 1);
+  --color-teal-800: rgba(41, 150, 161, 1);
+  --color-red-400: rgba(255, 84, 89, 1);
+  --color-red-500: rgba(192, 21, 47, 1);
+  --color-orange-400: rgba(230, 129, 97, 1);
+  --color-orange-500: rgba(168, 75, 47, 1);
+
+  /* RGB versions for opacity control */
+  --color-brown-600-rgb: 94, 82, 64;
+  --color-teal-500-rgb: 33, 128, 141;
+  --color-slate-900-rgb: 19, 52, 59;
+  --color-slate-500-rgb: 98, 108, 113;
+  --color-red-500-rgb: 192, 21, 47;
+  --color-red-400-rgb: 255, 84, 89;
+  --color-orange-500-rgb: 168, 75, 47;
+  --color-orange-400-rgb: 230, 129, 97;
+
+  /* Background color tokens (Light Mode) */
+  --color-bg-1: rgba(59, 130, 246, 0.08);
+  --color-bg-2: rgba(245, 158, 11, 0.08);
+  --color-bg-3: rgba(34, 197, 94, 0.08);
+  --color-bg-4: rgba(239, 68, 68, 0.08);
+  --color-bg-5: rgba(147, 51, 234, 0.08);
+  --color-bg-6: rgba(249, 115, 22, 0.08);
+  --color-bg-7: rgba(236, 72, 153, 0.08);
+  --color-bg-8: rgba(6, 182, 212, 0.08);
+
+  /* Semantic Color Tokens (Light Mode) */
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-text: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-primary-active: var(--color-teal-700);
+  --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+  --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-btn-primary-text: var(--color-cream-50);
+  --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-error: var(--color-red-500);
+  --color-success: var(--color-teal-500);
+  --color-warning: var(--color-orange-500);
+  --color-info: var(--color-slate-500);
+  --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+  --color-select-caret: rgba(var(--color-slate-900-rgb), 0.8);
+
+  /* Typography */
+  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 30px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 600;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+
+  /* Spacing */
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-base: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+
+  /* Animation */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-gray-400-rgb: 119, 124, 124;
+    --color-teal-300-rgb: 50, 184, 198;
+    --color-gray-300-rgb: 167, 169, 169;
+    --color-gray-200-rgb: 245, 245, 245;
+
+    --color-bg-1: rgba(29, 78, 216, 0.15);
+    --color-bg-2: rgba(180, 83, 9, 0.15);
+    --color-bg-3: rgba(21, 128, 61, 0.15);
+    --color-bg-4: rgba(185, 28, 28, 0.15);
+    --color-bg-5: rgba(107, 33, 168, 0.15);
+    --color-bg-6: rgba(194, 65, 12, 0.15);
+    --color-bg-7: rgba(190, 24, 93, 0.15);
+    --color-bg-8: rgba(8, 145, 178, 0.15);
+
+    --color-background: var(--color-charcoal-700);
+    --color-surface: var(--color-charcoal-800);
+    --color-text: var(--color-gray-200);
+    --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+    --color-primary: var(--color-teal-300);
+    --color-primary-hover: var(--color-teal-400);
+    --color-primary-active: var(--color-teal-800);
+    --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+    --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
+    --color-secondary-active: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-error: var(--color-red-400);
+    --color-success: var(--color-teal-300);
+    --color-warning: var(--color-orange-400);
+    --color-info: var(--color-gray-300);
+    --color-btn-primary-text: var(--color-slate-900);
+    --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+    --color-card-border-inner: rgba(var(--color-gray-400-rgb), 0.15);
+  }
+}
+
+@font-face {
+  font-family: 'FKGroteskNeue';
+  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2') format('woff2');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family-base);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  line-height: var(--line-height-normal);
+  -webkit-font-smoothing: antialiased;
+}
+
+.dashboard-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--space-32);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--space-32);
+}
+
+.header h1 {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin-bottom: var(--space-8);
+}
+
+.header h2 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-8);
+}
+
+.header .date-range {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+}
+
+.kpi-section {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--space-16);
+  margin-bottom: var(--space-32);
+}
+
+.kpi-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-20);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.kpi-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.kpi-card.revenue {
+  background-color: var(--color-bg-1);
+}
+
+.kpi-card.profit {
+  background-color: var(--color-bg-3);
+}
+
+.kpi-card.margin {
+  background-color: var(--color-bg-3);
+}
+
+.kpi-card.aov {
+  background-color: var(--color-bg-1);
+}
+
+.kpi-card.orders {
+  background-color: var(--color-bg-1);
+}
+
+.kpi-card.units {
+  background-color: var(--color-bg-1);
+}
+
+.kpi-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--space-8);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.kpi-value {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.kpi-value.success {
+  color: var(--color-success);
+}
+
+.kpi-value.primary {
+  color: var(--color-primary);
+}
+
+.tab-navigation {
+  display: flex;
+  gap: var(--space-8);
+  margin-bottom: var(--space-32);
+  border-bottom: 2px solid var(--color-border);
+  overflow-x: auto;
+}
+
+.tab-button {
+  padding: var(--space-12) var(--space-24);
+  background: none;
+  border: none;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  position: relative;
+  transition: all var(--duration-fast) var(--ease-standard);
+  white-space: nowrap;
+}
+
+.tab-button:hover {
+  color: var(--color-text);
+  background-color: var(--color-secondary);
+}
+
+.tab-button.active {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.tab-button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: var(--color-primary);
+}
+
+.chart-section {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-32);
+  margin-bottom: var(--space-24);
+  box-shadow: var(--shadow-sm);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.chart-container {
+  width: 100%;
+  height: 400px;
+  margin-bottom: var(--space-24);
+}
+
+.insights-section {
+  background-color: var(--color-bg-2);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-24);
+}
+
+.insights-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin-bottom: var(--space-16);
+}
+
+.insight-item {
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  margin-bottom: var(--space-12);
+  padding-left: var(--space-16);
+  position: relative;
+}
+
+.insight-item::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+@media (max-width: 1024px) {
+  .kpi-section {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .kpi-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .dashboard-container {
+    padding: var(--space-16);
+  }
+}
+
+@media (max-width: 480px) {
+  .kpi-section {
+    grid-template-columns: 1fr;
+  }
+}
+    </style>
+</head>
+
+
+<style>
+    /* Floating button */
+    #chatbot-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #2563eb;
+    color: white;
+    font-size: 24px;
+    padding: 14px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 9999;
+    }
+
+    /* Chatbot popup */
+    #chatbot-container {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 320px;
+    height: 420px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    display: none;
+    flex-direction: column;
+    z-index: 9999;
+    font-family: Arial, sans-serif;
+    }
+
+    /* Header */
+    #chatbot-header {
+    background: #2563eb;
+    color: white;
+    padding: 12px;
+    border-radius: 12px 12px 0 0;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    }
+
+    /* Messages */
+    #chatbot-messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    background: #f9fafb;
+    }
+
+    /* Chat bubbles */
+    .user-msg {
+    text-align: right;
+    margin: 8px 0;
+    color: #111827;
+    }
+
+    .bot-msg {
+    text-align: left;
+    margin: 8px 0;
+    color: #2563eb;
+    }
+
+    /* Input */
+    #chatbot-input {
+    display: flex;
+    border-top: 1px solid #e5e7eb;
+    }
+
+    #chatbot-input input {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    outline: none;
+    }
+
+    #chatbot-input button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    cursor: pointer;
+    }
+</style>
+
+<!-- Chatbot Widget -->
+<div id="chatbot-container">
+  <div id="chatbot-header">
+    💬 Sales Assistant
+    <span id="close-chat">✖</span>
+  </div>
+
+  <div id="chatbot-messages"></div>
+
+  <div id="chatbot-input">
+    <input type="text" id="user-input" placeholder="Ask about sales..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<!-- Floating Button -->
+<div id="chatbot-toggle">💬</div>
+
+<link rel="stylesheet" href="chatbot.css">
+<script src="chatbot.js"></script>
+
+<script>
+const chatbot = document.getElementById("chatbot-container");
+const toggleBtn = document.getElementById("chatbot-toggle");
+const closeBtn = document.getElementById("close-chat");
+const messagesDiv = document.getElementById("chatbot-messages");
+
+toggleBtn.onclick = () => chatbot.style.display = "flex";
+closeBtn.onclick = () => chatbot.style.display = "none";
+
+async function sendMessage() {
+    const input = document.getElementById("user-input");
+    const text = input.value.trim();
+    if (!text) return;
+
+    messagesDiv.innerHTML += `<div class="user-msg">${text}</div>`;
+    input.value = "";
+
+    // ---- CLEAR CHAT COMMAND ----
+    if (text === "clear") {
+        messagesDiv.innerHTML = `
+            <div class="bot-msg">
+                🧹 Chat cleared! How can I help you again?
+            </div>
+        `;
+        input.value = "";
+        return;
+    }
+
+    const response = await fetch("http://localhost:8000/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text })
+    });
+
+    const data = await response.json();
+    console.log(data); // 🔍 debug
+
+    messagesDiv.innerHTML += `<div class="bot-msg">${data.answer}</div>`;
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+</script>
+
+
+<body>
+    <div class="dashboard-container">
+        <header class="header">
+            <h1>Retail E-Commerce Sales Analytics Dashboard</h1>
+            <h2>Comprehensive Business Intelligence Report</h2>
+            <p class="date-range">January 2023 - October 2024</p>
+        </header>
+
+        <section class="kpi-section">
+            <div class="kpi-card revenue">
+                <div class="kpi-label">Total Revenue</div>
+                <div class="kpi-value primary">₹113,874.02</div>
+            </div>
+            <div class="kpi-card profit">
+                <div class="kpi-label">Total Profit</div>
+                <div class="kpi-value success">₹30,126.29</div>
+            </div>
+            <div class="kpi-card margin">
+                <div class="kpi-label">Profit Margin</div>
+                <div class="kpi-value success">26.46%</div>
+            </div>
+            <div class="kpi-card aov">
+                <div class="kpi-label">Avg Order Value</div>
+                <div class="kpi-value primary">₹2,277.48</div>
+            </div>
+            <div class="kpi-card orders">
+                <div class="kpi-label">Total Orders</div>
+                <div class="kpi-value primary">50</div>
+            </div>
+            <div class="kpi-card units">
+                <div class="kpi-label">Total Units Sold</div>
+                <div class="kpi-value primary">92</div>
+            </div>
+        </section>
+
+        <nav class="tab-navigation">
+            <button class="tab-button active" data-tab="category">Category Performance</button>
+            <button class="tab-button" data-tab="channel">Channel Analysis</button>
+            <button class="tab-button" data-tab="geographic">Geographic Insights</button>
+            <button class="tab-button" data-tab="status">Order Status Analysis</button>
+            <button class="tab-button" data-tab="salesperson">Salesperson Performance</button>
+        </nav>
+
+        <div class="chart-section">
+            <div id="category-tab" class="tab-content active">
+                <div class="chart-container">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+                <div class="insights-section">
+                    <h3 class="insights-title">Key Insights</h3>
+                    <div class="insight-item">Jeans is the top performer with ₹28,466.69 in sales, representing 25% of total revenue</div>
+                    <div class="insight-item">Women's Dresses and T-Shirts contribute significantly with ₹20,679.93 and ₹15,148.96 respectively</div>
+                    <div class="insight-item">Sarees category is underperforming with only ₹1,902.49, indicating opportunity for improvement or discontinuation</div>
+                </div>
+            </div>
+
+            <div id="channel-tab" class="tab-content">
+                <div class="chart-container">
+                    <canvas id="channelChart"></canvas>
+                </div>
+                <div class="insights-section">
+                    <h3 class="insights-title">Key Insights</h3>
+                    <div class="insight-item">In-store generates 63% of revenue (₹72,092.42) but has moderate conversion rate at 14.29%</div>
+                    <div class="insight-item">Online channel has the best conversion rate (20%) despite lower revenue share (14.2%), showing strong potential</div>
+                    <div class="insight-item">Mobile app needs optimization with only 8.33% conversion rate, though it accounts for 22.4% of revenue</div>
+                </div>
+            </div>
+
+            <div id="geographic-tab" class="tab-content">
+                <div class="chart-container">
+                    <canvas id="geographicChart"></canvas>
+                </div>
+                <div class="insights-section">
+                    <h3 class="insights-title">Key Insights</h3>
+                    <div class="insight-item">Tirunelveli is the top location with ₹23,209.03 across 7 orders, averaging ₹3,315.58 per order</div>
+                    <div class="insight-item">Coimbatore shows high order volume (11 orders) with ₹20,445.32 in sales</div>
+                    <div class="insight-item">South Tamil Nadu shows stronger performance than North Tamil Nadu, suggesting regional marketing focus</div>
+                </div>
+            </div>
+
+            <div id="status-tab" class="tab-content">
+                <div class="chart-container">
+                    <canvas id="statusChart"></canvas>
+                </div>
+                <div class="insights-section">
+                    <h3 class="insights-title">Key Insights</h3>
+                    <div class="insight-item">30% return rate (15 orders) is critically concerning and requires immediate investigation into product quality and customer satisfaction</div>
+                    <div class="insight-item">Only 14% of orders marked as Paid (7 orders), suggesting payment processing or fulfillment delays</div>
+                    <div class="insight-item">24% orders stuck in Pending status (12 orders) indicates operational bottlenecks in order processing</div>
+                </div>
+            </div>
+
+            <div id="salesperson-tab" class="tab-content">
+                <div class="chart-container">
+                    <canvas id="salespersonChart"></canvas>
+                </div>
+                <div class="insights-section">
+                    <h3 class="insights-title">Key Insights</h3>
+                    <div class="insight-item">Top performer Salesperson_14 generates ₹18,056.17 in sales with ₹4,694.16 in profit (26% margin)</div>
+                    <div class="insight-item">Top 5 salespersons generate ₹52,865.59, representing 46% of total revenue, showing concentration risk</div>
+                    <div class="insight-item">Salesperson_4 shows strong profitability with ₹3,723.42 profit from ₹11,389.12 sales (33% margin)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Tab switching functionality
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabName = button.getAttribute('data-tab');
+                
+                // Remove active class from all buttons and contents
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding content
+                button.classList.add('active');
+                document.getElementById(`${tabName}-tab`).classList.add('active');
+            });
+        });
+
+        // Chart colors
+        const chartColors = ['#1FB8CD', '#FFC185', '#B4413C', '#ECEBD5', '#5D878F', '#DB4545', '#D2BA4C', '#964325', '#944454', '#13343B'];
+
+        // Category Performance Chart
+        const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+        const categoryChart = new Chart(categoryCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Jeans', "Women's Dresses", 'T-Shirts', 'Kurta', 'Sportswear', "Kid's Wear", "Men's Shirts", 'Sarees'],
+                datasets: [{
+                    label: 'Sales (₹)',
+                    data: [28466.69, 20679.93, 15148.96, 13199.63, 12341.24, 11841.55, 10293.53, 1902.49],
+                    backgroundColor: chartColors.slice(0, 8),
+                    borderColor: chartColors.slice(0, 8),
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'Sales by Product Category',
+                        font: {
+                            size: 18,
+                            weight: 'bold'
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return '₹' + context.parsed.y.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '₹' + value.toLocaleString('en-IN');
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Channel Analysis Chart
+        const channelCtx = document.getElementById('channelChart').getContext('2d');
+        const channelChart = new Chart(channelCtx, {
+            type: 'bar',
+            data: {
+                labels: ['In-Store (63.3%)', 'Mobile App (22.4%)', 'Online (14.2%)'],
+                datasets: [{
+                    label: 'Sales (₹)',
+                    data: [72092.42, 25558.40, 16223.20],
+                    backgroundColor: [chartColors[0], chartColors[1], chartColors[2]],
+                    borderColor: [chartColors[0], chartColors[1], chartColors[2]],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'Sales by Channel (with conversion rates: In-store 14.29%, Mobile 8.33%, Online 20%)',
+                        font: {
+                            size: 18,
+                            weight: 'bold'
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return '₹' + context.parsed.x.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '₹' + value.toLocaleString('en-IN');
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Geographic Insights Chart
+        const geographicCtx = document.getElementById('geographicChart').getContext('2d');
+        const geographicChart = new Chart(geographicCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Tirunelveli (7 orders)', 'Coimbatore (11 orders)', 'Chennai (5 orders)', 'Madurai (4 orders)', 'Tiruchirappalli (8 orders)'],
+                datasets: [{
+                    label: 'Sales (₹)',
+                    data: [23209.03, 20445.32, 19158.56, 14641.70, 13980.79],
+                    backgroundColor: chartColors.slice(0, 5),
+                    borderColor: chartColors.slice(0, 5),
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'Top 5 Locations by Sales',
+                        font: {
+                            size: 18,
+                            weight: 'bold'
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return '₹' + context.parsed.x.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '₹' + value.toLocaleString('en-IN');
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Order Status Chart
+        const statusCtx = document.getElementById('statusChart').getContext('2d');
+        const statusChart = new Chart(statusCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Returned (30%)', 'Pending (24%)', 'Cancelled (16%)', 'Shipped (16%)', 'Paid (14%)'],
+                datasets: [{
+                    label: 'Orders',
+                    data: [15, 12, 8, 8, 7],
+                    backgroundColor: chartColors.slice(0, 5),
+                    borderColor: '#fff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Order Status Distribution',
+                        font: {
+                            size: 18,
+                            weight: 'bold'
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.parsed + ' orders';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Salesperson Performance Chart
+        const salespersonCtx = document.getElementById('salespersonChart').getContext('2d');
+        const salespersonChart = new Chart(salespersonCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Salesperson_14', 'Salesperson_4', 'Salesperson_34', 'Salesperson_5', 'Salesperson_3'],
+                datasets: [{
+                    label: 'Sales (₹)',
+                    data: [18056.17, 11389.12, 11324.32, 6456.82, 5639.16],
+                    backgroundColor: chartColors[0],
+                    borderColor: chartColors[0],
+                    borderWidth: 1
+                }, {
+                    label: 'Profit (₹)',
+                    data: [4694.16, 3723.42, 3482.05, 1382.54, 756.81],
+                    backgroundColor: chartColors[2],
+                    borderColor: chartColors[2],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Top 5 Salesperson Performance',
+                        font: {
+                            size: 18,
+                            weight: 'bold'
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': ₹' + context.parsed.x.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '₹' + value.toLocaleString('en-IN');
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

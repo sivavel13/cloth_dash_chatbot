@@ -1,0 +1,14 @@
+[
+  {
+    "question": "What is this dashboard about?",
+    "answer": "This dashboard analyzes clothing sales including revenue, category performance, and trends."
+  },
+  {
+    "question": "Which category has highest sales?",
+    "answer": "Top performing categories are T-Shirts and Shirts based on revenue."
+  },
+  {
+    "question": "What insights can I get?",
+    "answer": "You can analyze sales trends, category performance, discounts impact, and customer ratings."
+  }
+]
