@@ -8,7 +8,7 @@ import os
 # LOAD DATASET
 # -----------------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-csv_path = os.path.join(BASE_DIR, "data", "Clothing_Sales_Data_UTF.CSV")
+csv_path = os.path.join(BASE_DIR, "data", "Clothing_Sales_Data_UTF.csv")
 df = pd.read_csv(csv_path)  # make sure file name is correct
 df["saleDate"] = pd.to_datetime(df["saleDate"], format="mixed", errors="coerce")
 
@@ -266,3 +266,4 @@ def chat(req: ChatRequest):
         )
 
         }
+
