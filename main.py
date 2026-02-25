@@ -2,11 +2,14 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import pandas as pd
+import os
 
 # -----------------------------
 # LOAD DATASET
 # -----------------------------
-df = pd.read_csv("D:\Data Analysis\Clothing Sales Transactions Dataset\sales-dashboard\data\Clothing Sales Data_UTF.csv")  # make sure file name is correct
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+csv_path = os.path.join(BASE_DIR, "data", "Clothing_Sales_Data_UTF.CSV")
+df = pd.read_csv(csv_path)  # make sure file name is correct
 df["saleDate"] = pd.to_datetime(df["saleDate"], format="mixed", errors="coerce")
 
 # -----------------------------
@@ -261,4 +264,5 @@ def chat(req: ChatRequest):
         "answer": (
             "👍 Got it! What would you like to check next?\n\n"
         )
+
         }
